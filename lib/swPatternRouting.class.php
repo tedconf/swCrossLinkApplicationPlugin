@@ -130,4 +130,17 @@ class swPatternRouting extends sfPatternRouting
 
     return $this->context_routes[$route_name];
   }
+  /**
+   * @see sfRouting
+   */
+  public function shutdown()
+  {
+    $skip = isset($this->options['skip_data_cache'])
+      ? $this->options['skip_data_cache'] : false;
+    if ($skip === true) {
+      $this->cacheChanged = false;
+    } else {
+      parent::shutdown();
+    }
+  }
 }
